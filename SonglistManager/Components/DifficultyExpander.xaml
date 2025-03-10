@@ -1,0 +1,209 @@
+<UserControl x:Class="SonglistManager.Components.DifficultyExpander"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:local="clr-namespace:SonglistManager.Components"
+             xmlns:ui="http://schemas.inkore.net/lib/ui/wpf/modern"
+             xmlns:converters="clr-namespace:SonglistManager.Converters"
+             DataContext="{Binding RelativeSource={RelativeSource Self}}"
+             mc:Ignorable="d">
+    <UserControl.Resources>
+        <converters:BoolToVisibilityConverter x:Key="BoolToVisibilityConverter" />
+    </UserControl.Resources>
+    <Expander
+        x:Name="Expander"
+        Margin="10"
+        HorizontalAlignment="Stretch"
+        HorizontalContentAlignment="Stretch"
+        Header="难度"
+        Padding="10,0,0,0"
+        IsExpanded="False">
+        <Grid>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="Auto" />
+            </Grid.RowDefinitions>
+
+            <!--  rating, ratingPlus  -->
+            <Grid Grid.Row="0">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="150" />
+                    <ColumnDefinition Width="*" />
+                </Grid.ColumnDefinitions>
+
+                <!--  rating  -->
+                <ui:NumberBox
+                    x:Name="Rating"
+                    Grid.Column="0"
+                    MinWidth="100"
+                    Margin="10"
+                    Header="标级"
+                    LargeChange="1"
+                    Minimum="0"
+                    PlaceholderText="请输入曲目等级"
+                    SmallChange="1"
+                    SpinButtonPlacementMode="Compact"
+                    ToolTipService.ToolTip="若等级为0且不填写谱师信息，则认为该难度为空"
+                    ValueChanged="Rating_ValueChanged"
+                    Value="0" />
+
+                <!--  ratingPlus  -->
+                <ToggleButton
+                    x:Name="RatingPlus"
+                    Grid.Column="1"
+                    Margin="10,35,10,10"
+                    Click="RatingPlus_Click"
+                    Content="+"
+                    FontSize="15"
+                    ToolTipService.ToolTip="本难度等级是否有'+'" />
+            </Grid>
+
+            <RichTextBox
+                x:Name="ChartDesigner"
+                Grid.Row="1"
+                MinWidth="300"
+                HorizontalAlignment="Stretch"
+                ui:ControlHelper.Header="谱师名义"
+                ui:ControlHelper.PlaceholderText="请输入谱师名义"
+                ToolTipService.ToolTip="若不填写谱师信息且等级为0，则认为该难度为空"
+                Margin="10" />
+
+            <RichTextBox
+                Grid.Row="2"
+                x:Name="JacketDesigner"
+                Margin="10"
+                MinWidth="300"
+                HorizontalAlignment="Stretch"
+                ui:ControlHelper.Header="画师名义"
+                ui:ControlHelper.PlaceholderText="请输入封面绘师名义" />
+
+            <ui:ToggleSwitch
+                x:Name="IsUseDiffToggle"
+                Grid.Row="3"
+                Margin="10"
+                HorizontalAlignment="Stretch"
+                Header="是否使用差分信息"
+                OffContent="否"
+                OnContent="是（若某项留空，则不使用该项的差分）" />
+
+            <Grid
+                x:Name="DiffGrid"
+                Grid.Row="4"
+                Visibility="{Binding IsOn, ElementName=IsUseDiffToggle, Converter={StaticResource BoolToVisibilityConverter}}">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="Auto" />
+                </Grid.RowDefinitions>
+
+                <!--  title_localized  -->
+                <Grid Grid.Row="0">
+                    <local:LocalizationTextBlock
+                        x:Name="TitleLocalized"
+                        Header="曲名"
+                        PlaceholderText="请输入曲名"
+                        ToolTipService.ToolTip="差分曲名" />
+                </Grid>
+
+                <!--  artist  -->
+                <Grid Grid.Row="1">
+                    <TextBox
+                        x:Name="Artist"
+                        Margin="10"
+                        ui:ControlHelper.Header="曲师"
+                        ui:ControlHelper.PlaceholderText="请输入曲师名"
+                        ToolTipService.ToolTip="差分曲师名" />
+                </Grid>
+
+                <!--  jacketOverride, audioOverride  -->
+                <Grid Grid.Row="2">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="*" />
+                        <ColumnDefinition Width="*" />
+                    </Grid.ColumnDefinitions>
+
+                    <!--  jacketOverride  -->
+                    <StackPanel Grid.Column="0" Margin="10,0,0,0">
+                        <TextBlock Margin="0,10,0,0" Text="使用差分曲绘" />
+                        <ui:ToggleSwitch
+                            x:Name="JacketOverride"
+                            Margin="10,0,0,10"
+                            OffContent="否"
+                            OnContent="是"
+                            ToolTipService.ToolTip="差分曲绘名应为 等级.jpg / 等级_256.jpg" />
+                    </StackPanel>
+
+                    <!--  audioOverride  -->
+                    <StackPanel Grid.Column="1">
+                        <TextBlock Margin="0,10,0,0" Text="使用差分音频" />
+                        <ui:ToggleSwitch
+                            x:Name="AudioOverride"
+                            Margin="10,0,0,10"
+                            OffContent="否"
+                            OnContent="是"
+                            ToolTipService.ToolTip="差分音频应为等级.ogg" />
+                    </StackPanel>
+                </Grid>
+                <!--  bpm, bpm_base  -->
+                <Grid Grid.Row="3">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="*" />
+                        <ColumnDefinition Width="*" />
+                    </Grid.ColumnDefinitions>
+
+                    <!--  bpm_base  -->
+                    <ui:NumberBox
+                        x:Name="BpmBase"
+                        Grid.Column="0"
+                        Margin="10"
+                        Header="基准BPM"
+                        LargeChange="20"
+                        Value="0"
+                        PlaceholderText="基准BPM"
+                        SmallChange="1"
+                        SpinButtonPlacementMode="Inline"
+                        ToolTipService.ToolTip="差分基准BPM" />
+
+                    <!--  bpm  -->
+                    <TextBox
+                        x:Name="Bpm"
+                        Grid.Column="1"
+                        Margin="10"
+                        ui:ControlHelper.Header="展示BPM"
+                        ui:ControlHelper.PlaceholderText="展示BPM"
+                        ToolTipService.ToolTip="差分显示的BPM字样" />
+                </Grid>
+
+                <!--  bg, date  -->
+                <Grid Grid.Row="4">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="*" />
+                        <ColumnDefinition Width="*" />
+                    </Grid.ColumnDefinitions>
+
+                    <!--  bg  -->
+                    <local:BgButton x:Name="BgButton"></local:BgButton>
+
+                    <!--  date  -->
+                    <ui:NumberBox
+                        x:Name="Date"
+                        Grid.Column="1"
+                        Margin="10"
+                        Header="日期"
+                        Value="0"
+                        LargeChange="1000"
+                        PlaceholderText="10位时间戳"
+                        SmallChange="100"
+                        SpinButtonPlacementMode="Inline"
+                        ToolTipService.ToolTip="初始值即当前时间，有即可，没什么用" />
+                </Grid>
+            </Grid>
+        </Grid>
+    </Expander>
+</UserControl>

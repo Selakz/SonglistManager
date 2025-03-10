@@ -1,0 +1,42 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+    <PropertyGroup>
+        <OutputType>WinExe</OutputType>
+        <TargetFramework>net8.0-windows</TargetFramework>
+        <Nullable>enable</Nullable>
+        <ImplicitUsings>enable</ImplicitUsings>
+        <UseWPF>true</UseWPF>
+        <ApplicationIcon>Assets\Icons\app.ico</ApplicationIcon>
+    </PropertyGroup>
+
+    <ItemGroup>
+        <PackageReference Include="iNKORE.UI.WPF.Modern" Version="0.10.0"/>
+        <PackageReference Include="Newtonsoft.Json" Version="13.0.3"/>
+        <PackageReference Include="YamlDotNet" Version="16.3.0"/>
+    </ItemGroup>
+
+    <ItemGroup>
+        <Folder Include="Assets\"/>
+    </ItemGroup>
+
+    <ItemGroup>
+        <None Remove="Assets\Icons\ArcadePlus.ico"/>
+        <Resource Include="Assets\Icons\ArcadePlus.ico">
+            <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+        </Resource>
+        <None Remove="Assets\Icons\ArcCreate.ico"/>
+        <Resource Include="Assets\Icons\ArcCreate.ico">
+            <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+        </Resource>
+        <None Remove="Assets\Icons\app.ico"/>
+        <Resource Include="Assets\Icons\app.ico">
+            <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+        </Resource>
+        <None Remove="Assets\Icons\DefaultCover.png"/>
+        <Resource Include="Assets\Icons\DefaultCover.png">
+            <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+        </Resource>
+        <None Remove="Assets\Icons\base.ogg"/>
+    </ItemGroup>
+
+</Project>

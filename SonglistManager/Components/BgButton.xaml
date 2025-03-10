@@ -1,0 +1,22 @@
+<UserControl x:Class="SonglistManager.Components.BgButton"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             mc:Ignorable="d"
+             d:DesignHeight="300" d:DesignWidth="300">
+    <Grid>
+        <StackPanel Margin="10">
+            <TextBlock>背景</TextBlock>
+            <Button
+                x:Name="Bg"
+                Margin="0,10,0,10"
+                HorizontalAlignment="Stretch"
+                Tag=""
+                Click="BgButton_Click"
+                ToolTipService.ToolTip="可以在Arcade的Backgrounds文件夹中找">
+                <TextBlock x:Name="BgText"></TextBlock>
+            </Button>
+        </StackPanel>
+    </Grid>
+</UserControl>

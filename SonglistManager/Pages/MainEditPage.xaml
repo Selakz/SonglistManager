@@ -1,0 +1,97 @@
+<Page x:Class="SonglistManager.Pages.MainEditPage"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+      xmlns:ui="http://schemas.inkore.net/lib/ui/wpf/modern"
+      xmlns:components="clr-namespace:SonglistManager.Components"
+      mc:Ignorable="d">
+    <Grid>
+        <ui:SplitView x:Name="MainSplitView"
+                      IsTabStop="False"
+                      PanePlacement="Left"
+                      DisplayMode="Overlay"
+                      IsPaneOpen="False"
+                      OpenPaneLength="300"
+                      PaneBackground="{DynamicResource {x:Static ui:ThemeKeys.SystemControlBackgroundChromeMediumLowBrushKey}}">
+            <ui:SplitView.Pane>
+                <Grid Background="LightGray">
+                    <!--  侧边栏标题  -->
+                    <Button
+                        x:Name="SelectFolderButton"
+                        Margin="0,10,0,0"
+                        HorizontalAlignment="Center"
+                        VerticalAlignment="Top"
+                        Click="SelectFolderButton_Click"
+                        Content="选择文件夹"
+                        MouseRightButtonDown="SelectFolderButton_RightTapped" />
+
+                    <!--  树形文件管理器  -->
+                    <components:FileExplorer x:Name="FileTreeView" Margin="0,40,0,0" />
+
+                    <Thumb
+                        Width="10"
+                        HorizontalAlignment="Right"
+                        Background="Transparent"
+                        DragDelta="PaneResizeThumb_DragDelta" />
+                </Grid>
+            </ui:SplitView.Pane>
+            <Grid>
+                <Button
+                    x:Name="TogglePaneButton"
+                    Margin="10"
+                    HorizontalAlignment="Left"
+                    VerticalAlignment="Top"
+                    Click="TogglePaneButton_Click"
+                    Content="☰"
+                    FontSize="20" />
+                <ui:NavigationView
+                    x:Name="FunctionView"
+                    Margin="40,0,0,0"
+                    HorizontalAlignment="Stretch"
+                    IsBackButtonVisible="Collapsed"
+                    IsSettingsVisible="False"
+                    PaneDisplayMode="Top"
+                    SelectionChanged="FunctionView_SelectionChanged">
+                    <ui:NavigationView.MenuItems>
+                        <ui:NavigationViewItem
+                            Width="150"
+                            Content="歌曲信息编辑"
+                            Tag="SongInfo">
+                            <ui:NavigationViewItem.Icon>
+                                <ui:FontIcon Icon="{x:Static ui:SegoeFluentIcons.MusicInfo}" />
+                            </ui:NavigationViewItem.Icon>
+                        </ui:NavigationViewItem>
+                        <ui:NavigationViewItem
+                            Width="150"
+                            Content="Songlist编辑"
+                            Tag="Songlist">
+                            <ui:NavigationViewItem.Icon>
+                                <ui:FontIcon Icon="{x:Static ui:SegoeFluentIcons.List}" />
+                            </ui:NavigationViewItem.Icon>
+                        </ui:NavigationViewItem>
+                    </ui:NavigationView.MenuItems>
+
+                    <Grid HorizontalAlignment="Stretch">
+                        <components:SongInfoForm
+                            x:Name="SongInfoForm"
+                            HorizontalAlignment="Stretch"
+                            Visibility="Visible" />
+                        <components:SonglistView
+                            x:Name="SonglistView"
+                            HorizontalAlignment="Stretch"
+                            Visibility="Collapsed" />
+                        <ui:TeachingTip
+                            x:Name="InfoFlyout"
+                            HorizontalAlignment="Center"
+                            FontSize="15"
+                            Width="200"
+                            VerticalAlignment="Center"
+                            IsOpen="False" />
+                    </Grid>
+
+                </ui:NavigationView>
+            </Grid>
+        </ui:SplitView>
+    </Grid>
+</Page>
