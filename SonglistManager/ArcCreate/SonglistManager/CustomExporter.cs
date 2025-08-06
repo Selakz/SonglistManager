@@ -145,7 +145,7 @@ public class CustomExporter
 				}
 				else
 				{
-					errors.Add($"找不到{songInfo.id}的{difficulty.rating}.aff文件");
+					errors.Add($"找不到{songInfo.id}的{difficulty.ratingClass}.aff文件");
 				}
 
 				// 差分曲绘

@@ -296,7 +296,7 @@ public partial class MainEditPage : Page
 		if (result == true)
 		{
 			string folderPath = dialog.FolderName;
-			var targetPath = Path.Combine(folderPath, "MyTestExport.arcpkg");
+			var targetPath = Path.Combine(folderPath, $"{songInfo.id}.arcpkg");
 			var errors = new CustomExporter(songInfo).Export(targetPath);
 			if (errors.Count > 0)
 			{

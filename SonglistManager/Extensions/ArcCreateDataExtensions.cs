@@ -93,7 +93,7 @@ namespace SonglistManager.Extensions
 			return new()
 			{
 				ChartPath = $"{d.ratingClass}.aff",
-				AudioPath = "base.ogg",
+				AudioPath = d.audioOverride ? $"{d.ratingClass}.ogg" : "base.ogg",
 				JacketPath = d.jacketOverride ? $"{d.ratingClass}.jpg" : "base.jpg",
 				BaseBpm = d.bpm_base == 0 ? songInfo.bpm_base : d.bpm_base,
 				BpmText = string.IsNullOrEmpty(d.bpm) ? songInfo.bpm : d.bpm,
